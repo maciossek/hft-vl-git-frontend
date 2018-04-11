@@ -1,0 +1,1076 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>HFT IPR Frontend Development</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-size="cover" data-background-image="https://media.giphy.com/media/neagi3AslKow/giphy.gif">
+					<h1 class="title">IPR</h1>
+					<h3 class="title">Git & Frontend Development</h3>
+				</section>
+				<section>
+					<section>
+						<h2>Gründe für Versionsverwaltung von Software</h2>
+						<ul>
+							<li>Kollaboration</li>
+							<li>Speichern von Versionen</li>
+							<li>Wiederherstellen von Versionen</li>
+							<li>Backup</li>
+						</ul>
+					</section>
+					<section>
+						<h2>VCS Software</h2>
+						<ul>
+							<li>Subversion (SVN)</li>
+							<li>Team Foundation Server</li>
+							<li>Git</li>
+						</ul>
+					</section>
+					<section>
+						<img src="http://i.imgur.com/DJwGUbU.jpg" />
+					</section>
+
+					<section data-markdown>
+						## Git
+						- Distributed Source Control System (DSCS).
+						- Open Source code management tool
+						- Ursprünglich designed und entwickelt von Linus Tovals für den Linux kernel (2005).
+						- Geschwindigkeit, Datenintegrität, Support für distributed, nicht-lineare workflows.
+					</section>
+
+					<section>
+						<h2>Distributed bedeutet…</h2>
+						<p>…es gibt kein zentrales repository</p>
+						<div>
+							<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/337684/images/1457056/git-tutorial-basics-clone-repotorepocollaboration.png" />
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Was bei GIT Speziell ist</h2>
+					</section>
+					<section>
+						<h3>Git Spaces</h3>
+						<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/337684/images/1457404/areas.png" />
+					</section>
+					<section>
+						<h3>File lifecycle</h3>
+						<img src="./images/spaces.png" />
+					</section>
+					<section>
+						<h3>File lifecycle</h3>
+						<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/337684/images/1457403/lifecycle.png" />
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Let's GIT it on!</h2>
+						<img border="0" src="https://media.giphy.com/media/fsoCk5kgOcYMM/giphy.gif" />
+					</section>
+					<section data-markdown>
+						### Lokales Repo erstellen
+
+						```
+						> mkdir repo1
+						> cd repo1
+						> ls -la
+						total 8
+						drwxrwxr-x 2 asp asp 4096 jun  5 13:28 .
+						drwxrwxr-x 3 asp asp 4096 jun  5 13:28 ..
+						> git init
+						Initialized empty Git repository in /home/asp/repositories/repo1/.git/
+						> ls -la
+						total 12
+						drwxrwxr-x 3 asp asp 4096 jun  5 13:28 .
+						drwxrwxr-x 3 asp asp 4096 jun  5 13:28 ..
+						drwxrwxr-x 7 asp asp 4096 jun  5 13:28 .git
+						```
+					</section>
+					<section data-markdown>
+						### Datei erstellen
+
+						```
+						> cat > file.txt
+						this is a file
+						^C
+						> ls -la
+						total 16
+						drwxrwxr-x 3 asp asp 4096 jun  5 13:30 .
+						drwxrwxr-x 3 asp asp 4096 jun  5 13:28 ..
+						-rw-rw-r-- 1 asp asp   15 jun  5 13:30 file.txt
+						drwxrwxr-x 7 asp asp 4096 jun  5 13:28 .git
+						```
+					</section>
+					<section data-markdown>
+						### Repo status checken
+
+						```
+						> git status
+						On branch master
+
+						Initial commit
+
+						Untracked files:
+						  (use "git add <file>..." to include in what will be committed)
+
+							file.txt
+
+						nothing added to commit but untracked files present (use "git add" to track)
+						>
+						```
+					</section>
+					<section data-markdown>
+						###  Neue Datei tracken
+
+						```
+						> git add file.txt
+						> git status
+						On branch master
+
+						Initial commit
+
+						Changes to be committed:
+						  (use "git rm --cached <file>..." to unstage)
+
+							new file:   file.txt
+
+						>
+						```
+					</section>
+					<section data-markdown>
+						### Git konfigurieren
+
+						```
+						> git config user.name "Your name here"
+						> git config user.email "your@email.here"
+						```
+					</section>
+					<section data-markdown>
+						### Erstes commit
+
+						```
+						> git commit -m "New file file.txt"
+						[master (root-commit) d87946f] New file file.txt
+						 1 file changed, 1 insertion(+)
+						 create mode 100644 file.txt
+						> git status
+						On branch master
+						nothing to commit, working directory clean
+						>
+						```
+					</section>
+					<section data-markdown>
+						### Repo history
+
+						```
+						> git log
+						commit d87946fa2d170113dcbda46d4b095a1a30e852ca
+						Author: acanimal <asantiago@acuriousanimal.com>
+						Date:   Fri Jun 5 13:38:27 2015 +0200
+
+						    New file file.txt
+						```
+					</section>
+					<section data-markdown>
+						### Mehr details
+
+						```
+						> git log --decorate=full --name-status
+						commit d87946fa2d170113dcbda46d4b095a1a30e852ca (HEAD, refs/heads/master)
+						Author: acanimal <asantiago@acuriousanimal.com>
+						Date:   Fri Jun 5 13:38:27 2015 +0200
+
+						    New file file.txt
+
+						A       file.txt
+						```
+					</section>
+					<section data-markdown>
+						### `git status` vs `git log`
+
+						> git status: working tree status
+
+						> git log: history der Änderungen von allen commits
+					</section>
+					<section data-markdown>
+						…neue Datei hinzufügen "other.txt" und file.txt verändern dann den status checken
+
+						```
+						> git status
+						On branch master
+						Changes not staged for commit:
+						  (use "git add <file>..." to update what will be committed)
+						  (use "git checkout -- <file>..." to discard changes in working directory)
+
+							modified:   file.txt
+
+						Untracked files:
+						  (use "git add <file>..." to include in what will be committed)
+
+							other.txt
+
+						no changes added to commit (use "git add" and/or "git commit -a")
+						```
+					</section>
+					<section data-markdown>
+						other.txt zum tracking hinzufügen
+
+						```
+						> git add other.txt
+						> git status
+						On branch master
+						Changes to be committed:
+						  (use "git reset HEAD <file>..." to unstage)
+
+							new file:   other.txt
+
+						Changes not staged for commit:
+						  (use "git add <file>..." to update what will be committed)
+						  (use "git checkout -- <file>..." to discard changes in working directory)
+
+							modified:   file.txt
+						```
+					</section>
+					<section data-markdown>
+						Dateien stagen und commiten zur gleichen Zeit
+
+						```
+						> git commit -am "Added new file other.txt"
+						[master a709c60] Added new file other.txt
+						 2 files changed, 2 insertions(+)
+						 create mode 100644 other.txt
+						> git status
+						On branch master
+						nothing to commit, working directory clean
+						```
+					</section>
+					<section data-markdown>
+						Git history checken
+
+						```
+						> git log --decorate=full --name-status
+						commit a709c60d5c885beeeaf2a7d6fd6f129dbeead216 (HEAD, refs/heads/master)
+						Author: acanimal <asantiago@acuriousanimal.com>
+						Date:   Fri Jun 5 15:59:05 2015 +0200
+
+						    Added new file other.txt
+
+						M       file.txt
+						A       other.txt
+
+						commit d87946fa2d170113dcbda46d4b095a1a30e852ca
+						Author: acanimal <asantiago@acuriousanimal.com>
+						Date:   Fri Jun 5 13:38:27 2015 +0200
+
+						    New file file.txt
+
+						A       file.txt
+						```
+					</section>
+					<section>
+						<h2>Zusammenfassung</h2>
+						<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/337684/images/1484363/Git_-_New_Page__1_.png" />
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Git Branching</h2>
+					</section>
+					<section data-markdown>
+						Master branch ist immer angelegt
+
+						```
+						> git branch
+						* master
+						```
+
+						Neuen branch erstellen
+
+						```
+						> git branch bug01
+						> git branch
+						  bug01
+						* master
+						```
+
+						Wir arbeiten immernoch auf master. bug01 soll daher working branch werden
+
+						```
+						> git checkout bug01
+						Switched to branch 'bug01'
+						> git branch
+						* bug01
+						  master
+						```
+					</section>
+					<section data-markdown>
+						```
+						> git branch newBr
+						> git checkout newBr
+						```
+
+						Ist das gleiche wie
+
+						```
+						> git checkout -b newBr
+						```
+					</section>
+					<section data-markdown>
+						neue Datei erstellen um den Bug zu fixen
+
+						```
+						> cat > file_on_bug01.txt
+						fix the bug
+						^C
+						> git status
+						On branch bug01
+						Untracked files:
+						  (use "git add <file>..." to include in what will be committed)
+
+							file_on_bug01.txt
+
+						nothing added to commit but untracked files present (use "git add" to track)
+						```
+					</section>
+					<section data-markdown>
+						neue Datei hinzufügen und commiten
+
+						```
+						> git add file_on_bug01.txt
+						> git status
+						On branch bug01
+						Changes to be committed:
+						  (use "git reset HEAD <file>..." to unstage)
+
+							new file:   file_on_bug01.txt
+
+						> git commit -am "Bug fixed"
+						[bug01 776d7ee] Bug fixed
+						 1 file changed, 1 insertion(+)
+						 create mode 100644 file_on_bug01.txt
+						> git status
+						On branch bug01
+						nothing to commit, working directory clean
+						```
+					</section>
+					<section data-markdown>
+						Dateien im branch bug01 listen
+
+						```
+						> git status
+						On branch bug01
+						nothing to commit, working directory clean
+						> ls -l
+						total 12
+						-rw-rw-r-- 1 asp asp 12 jun 11 12:08 file_on_bug01.txt
+						-rw-rw-r-- 1 asp asp 17 jun  5 15:55 file.txt
+						-rw-rw-r-- 1 asp asp 21 jun  5 15:54 other.txt
+						```
+
+						auf den master branch wechseln und dort mal listen
+
+						```
+						> git checkout master
+						Switched to branch 'master'
+						> ls -l
+						total 8
+						-rw-rw-r-- 1 asp asp 17 jun  5 15:55 file.txt
+						-rw-rw-r-- 1 asp asp 21 jun  5 15:54 other.txt
+						```
+					</section>
+					<section data-markdown>
+						Wir mergen jetzt den master mit bug01
+
+						```
+						> git merge bug01
+						Updating a709c60..776d7ee
+						Fast-forward
+						 file_on_bug01.txt | 1 +
+						 1 file changed, 1 insertion(+)
+						 create mode 100644 file_on_bug01.txt
+						```
+
+						und listen unsere Dateien
+
+						```
+						> ls -l
+						total 12
+						-rw-rw-r-- 1 asp asp 12 jun 11 15:16 file_on_bug01.txt
+						-rw-rw-r-- 1 asp asp 35 jun 11 13:48 file.txt
+						-rw-rw-r-- 1 asp asp 21 jun  5 15:54 other.txt
+						```
+
+						Zuletzt kann man den branch löschen
+
+						```
+						> git branch -d bug01
+						Deleted branch bug01 (was 776d7ee).
+						```
+					</section>
+					<section>
+						<h2>Merge Konflikte</h2>
+						<img border="0" src="https://media.giphy.com/media/pwqJalFir0jew/giphy.gif" />
+					</section>
+					<section data-markdown>
+						Wir erstellen einen neuen branch bug02 und ändern die erste Zeile in file.txt und commiten:
+						```
+						> git checkout -b bug02
+						Switched to a new branch 'bug02'
+						> git branch
+						* bug02
+						  master
+						>
+						> vi file.txt
+						>
+						> git commit -am "Modified file.txt on bug02"
+						[bug02 fa2a1b4] Modified file.txt on bug02
+						 1 file changed, 1 insertion(+)
+						```
+					</section>
+					<section data-markdown>
+						Jetzt ändern wir file.txt im master:
+
+						```
+						> git checkout master
+						Switched to branch 'master'
+						> vi file.txt
+						> git commit -am "Added new line on file.txt at master"
+						[master 3c07391] Added new line on file.txt at master
+						 1 file changed, 1 insertion(+)
+						```
+					</section>
+					<section data-markdown>
+						Wenn jetzt bug02 in den master mergen:
+
+						```
+						> git branch
+						  bug02
+						* master
+						> git merge bug02
+						Auto-merging file.txt
+						CONFLICT (content): Merge conflict in file.txt
+						Automatic merge failed; fix conflicts and then commit the result.
+
+						> more file.txt
+						<<<<<<< HEAD
+						New line at 'master'
+						=======
+						New line here at 'bug02'.
+						>>>>>>> bug02
+						this is a file
+						.
+						```
+					</section>
+					<section data-markdown>
+						Git status:
+
+						```
+						> git status
+						On branch master
+						You have unmerged paths.
+						  (fix conflicts and run "git commit")
+
+						Unmerged paths:
+						  (use "git add <file>..." to mark resolution)
+
+							both modified:      file.txt
+
+						no changes added to commit (use "git add" and/or "git commit -a")
+						```
+					</section>
+					<section data-markdown>
+						Editieren von file.txt um den conflict zu resolven:
+
+						```
+						> vi file.txt
+						> more file.txt
+						New line at 'master'
+						New line here at 'bug02'.
+						this is a file
+
+						> git status
+						On branch master
+						You have unmerged paths.
+						  (fix conflicts and run "git commit")
+						Unmerged paths:
+						  (use "git add <file>..." to mark resolution)
+
+							both modified:      file.txt
+						no changes added to commit (use "git add" and/or "git commit -a")
+						```
+					</section>
+					<section data-markdown>
+						Jetzt wieder git add um klarzustellen, das der conflict gelöst ist:
+
+						```
+						> git add file.txt
+						> git status
+						On branch master
+						All conflicts fixed but you are still merging.
+						  (use "git commit" to conclude merge)
+
+						nothing to commit, working directory clean
+						> git commit -am "Merge done"
+						[master cb2da7c] Merge done
+						> git status
+						On branch master
+						nothing to commit, working directory clean
+						```
+					</section>
+					<section>
+						<h2>Zusammenfassung</h2>
+						<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/337684/images/1484366/Git_-_New_Page.png" />
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Remote repositories</h2>
+						<img border="0" src="https://media.giphy.com/media/3i7zenReaUuI0/giphy.gif" />
+					</section>
+					<section data-markdown>
+						### Remotes
+
+						- Repositories irgendwo im netz gehostet
+						- Notwendig um kollaborativ zu arbeiten
+						- Hier wird push & pull von remote zu lokalen repositories angewendet
+					</section>
+					<section data-markdown>
+						Um ein remote repository hinzuzufügen:
+
+						```
+						> git remote add origin http://asp@smcdevatlas01/stash/scm/test/test.git
+						> git remote
+						origin
+						> git remote -v
+						origin	http://asp@smcdevatlas01/stash/scm/test/test.git (fetch)
+						origin	http://asp@smcdevatlas01/stash/scm/test/test.git (push)
+						>
+						```
+					</section>
+					<section data-markdown>
+						Wir `pushen` den `master branch` auf `origin`
+
+						```
+						> git push origin master
+						Password for 'http://asp@smcdevatlas01':
+						Counting objects: 17, done.
+						Delta compression using up to 4 threads.
+						Compressing objects: 100% (10/10), done.
+						Writing objects: 100% (17/17), 1.45 KiB | 0 bytes/s, done.
+						Total 17 (delta 3), reused 0 (delta 0)
+						To http://asp@smcdevatlas01/stash/scm/test/test.git
+						 * [new branch]      master -> master
+						>
+						```
+					</section>
+					<section data-markdown>
+						## Um den aktuellen branch mit mit origin zu verknpüfen
+
+						> git push --set-upstream origin master
+					</section>
+					<section data-markdown>
+						Wir können jetzt unser remote repository in einen anderen Ordner clonen
+
+						```
+						> git clone http://asp@some_gitserver/test.git test
+						Cloning into 'test'...
+						Password for 'http://asp@some_gitserver':
+						remote: Counting objects: 23, done.
+						remote: Compressing objects: 100% (14/14), done.
+						remote: Total 23 (delta 5), reused 0 (delta 0)
+						Unpacking objects: 100% (23/23), done.
+						Checking connectivity... done.
+						```
+					</section>
+					<section data-markdown>
+						…und unsere branches und remote Konfiguration ansehen
+
+						```
+						> git branch -a
+						* master
+						  remotes/origin/HEAD -> origin/master
+						  remotes/origin/fix01
+						  remotes/origin/master
+
+						> git remote -v
+						origin	http://asp@some_gitserver/test.git (fetch)
+						origin	http://asp@some_gitserver/test.git (push)
+						```
+					</section>
+					<section data-markdown>
+						## Was `git clone` macht
+
+						- Setup des origin remote-repository
+						- Download des master branch
+					</section>
+					<section data-markdown>
+						Neue Datei erstellen file02.txt, commit und push auf remote
+
+						```
+						> vi file02.txt
+						> git add file02.txt
+						> git commit -m "New file 02"
+						[master d78e486] New file 02
+						 1 file changed, 0 insertions(+), 0 deletions(-)
+						 create mode 100644 file02.txt
+						> git push
+						Password for 'http://asp@some_gitserver':
+						Counting objects: 5, done.
+						Delta compression using up to 4 threads.
+						Compressing objects: 100% (2/2), done.
+						Writing objects: 100% (3/3), 337 bytes | 0 bytes/s, done.
+						Total 3 (delta 0), reused 0 (delta 0)
+						To http://asp@some_gitserver/test.git
+						   720262a..d78e486  master -> master
+						```
+					</section>
+					<section data-markdown>
+						Zurück in den vorherigen Ordner wechseln, dann auch eine neue Datei erstellen und pushen:
+
+						```
+						> git push origin master
+						Password for 'http://asp@some_gitserver':
+						To http://asp@some_gitserver/test.git
+						 ! [rejected]        master -> master (fetch first)
+						error: failed to push some refs to 'http://asp@some_gitserver/test.git'
+						hint: Updates were rejected because the remote contains work that you do
+						hint: not have locally. This is usually caused by another repository pushing
+						hint: to the same ref. You may want to first integrate the remote changes
+						hint: (e.g., 'git pull ...') before pushing again.
+						hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+						```
+					</section>
+					<section data-markdown>
+						Die remote hat Änderungen, die wir erst herunterladen und mergen müssen (mit unserem lokalen repository)
+
+						```
+						> git pull origin master
+						Password for 'http://asp@some_gitserver':
+						From http://some_gitserver/test
+						 * branch            master     -> FETCH_HEAD
+						Merge made by the 'recursive' strategy.
+						 file02.txt | 0
+						 1 file changed, 0 insertions(+), 0 deletions(-)
+						 create mode 100644 file02.txt
+						```
+					</section>
+					<section data-markdown>
+						Ohne Konflikte können wir jetzt pushen:
+
+						```
+						> git push origin master
+						Password for 'http://asp@some_gitserver':
+						Counting objects: 8, done.
+						Delta compression using up to 4 threads.
+						Compressing objects: 100% (4/4), done.
+						Writing objects: 100% (5/5), 556 bytes | 0 bytes/s, done.
+						Total 5 (delta 2), reused 0 (delta 0)
+						To http://asp@some_gitserver/test.git
+						   d78e486..4c15a4e  master -> master
+						```
+					</section>
+
+					<section>
+						<h2>Prinzipien hinter Git</h2>
+						<ul>
+							<li>Häufig und früh commiten</li>
+							<li>Keine Angst vor Merge-Konflikten</li>
+							<li>Aussagekräftige commit Nachrichten</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Tools, Links & Software</h2>
+						<ul>
+							<li><a target="_blank" href="https://www.git-tower.com/blog/git-cheat-sheet-de">Git Cheat Sheet</a></li>
+							<li><a target="_blank" href="https://www.git-tower.com">Git Tower</a></li>
+							<li><a target="_blank" href="https://www.sourcetreeapp.com/">Sourcetree</a></li>
+							<li><a target="_blank" href="https://www.kaleidoscopeapp.com/">Kaleidoscope</a></li>
+							<li><a target="_blank" href="http://www.sourcegear.com/diffmerge/">DiffMerge</a></li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>HTML & CSS Best Practises</h2>
+					</section>
+					<section>
+						<h2>SEO: Search Engine Optimization </h2>
+						<img border="0" src="https://media.giphy.com/media/NWlBEcDW5evFS/giphy.gif" />
+					</section>
+					<section data-markdown>
+						## HTML Doctype angeben
+						```
+						&lt;!DOCTYPE html&gt;
+						&lt;html lang="de"&gt;
+						…
+						&lt;/html&gt;
+						```
+					</section>
+					<section data-markdown>
+						## Tags korrekt schließen
+						```
+						&lt;!-- Schlecht: --&gt;
+						&lt;img src="yolo.png" &gt;
+						&lt;ul&gt;
+							&lt;li&gt;Wow ein Listenelement
+						&lt;/ul&gt;
+
+
+						&lt;!-- Gut: --&gt;
+						&lt;img src="yolo.png" /&gt;
+						&lt;ul&gt;
+							&lt;li&gt;Wow ein Listenelement&lt;/li&gt;
+						&lt;/ul&gt;
+						```
+					</section>
+					<section data-markdown>
+						## Meta Tags setzen
+						```
+						&lt;head&gt;
+							&lt;meta name="author" content="Angela Merkel"&gt;
+							&lt;meta name="description" content="So ziemlich die schlimmste Partei Deutschlands"&gt;
+							&lt;meta name="keywords" content="CDU, schlechte Politik, Politik, omg, wtf"&gt;
+							&lt;meta charset="UTF-8"&gt;
+							&lt;meta name="robots" content="NOINDEX,NOFOLLOW"&gt;
+						&lt;/head&gt;
+						```
+					</section>
+					<section data-markdown>
+						## Div, section, header, footer
+						```
+						&lt;body&gt;
+							&lt;header&gt;
+								&lt;p&gt;Wow ein Header&lt;/p&gt;
+							&lt;/header&gt;
+							&lt;section&gt;
+								&lt;p&gt;🥞&lt;/p&gt;
+							&lt;/section&gt;
+							&lt;section&gt;
+								&lt;p&gt;🥞&lt;/p&gt;
+							&lt;/section&gt;
+							&lt;footer&gt;
+								&lt;p&gt;Wow ein Footer&lt;/p&gt;
+							&lt;/footer&gt;
+						&lt;/body&gt;
+						```
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Responsive Design</h2>
+						<img border="0" src="https://www.w3schools.com/w3css/img_temp_cv.jpg" />
+					</section>
+					<section>
+						<h2>Media Queries</h2>
+						<p data-height="550" data-theme-id="light" data-slug-hash="mMbeBP" data-default-tab="css,result" data-user="maciossek" data-embed-version="2" data-pen-title="mMbeBP" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/maciossek/pen/mMbeBP/">mMbeBP</a> by Mathias Maciossek (<a href="https://codepen.io/maciossek">@maciossek</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+					</section>
+					<section>
+						<h2>Frontend Framewoks</h2>
+						<ul>
+							<li><a target="_blank" href="https://v4-alpha.getbootstrap.com">Twitter Boostrap</a></li>
+							<li><a target="_blank" href="http://foundation.zurb.com/">Foundation</a></li>
+							<li><a target="_blank" href="https://semantic-ui.com/">Sematic UI</a></li>
+						</ul>
+					</section>
+					<section>
+						<h2>Grid System</h2>
+						<img src="https://c1.staticflickr.com/7/6080/6088504716_ca1a4d84a4.jpg" />
+					</section>
+					<section>
+						<h2>Grid System Bootstrap</h2>
+						<img src="https://dzone.com/storage/temp/891125-dzone1.jpg" />
+					</section>
+					<section data-markdown>
+						```
+						col-xs-*	576px Mobile
+						col-sm-*	768px Tablet
+						col-md-*	992px Medium Desktop
+						col-lg-*	1200px Large Display
+						```
+					</section>
+					<section data-markdown>
+						## Installation Boostrap
+						<p>Innerhalb des `&lt;head&gt;` tags:</p>
+						```
+						&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"&gt;
+						```
+						<p>Vor dem schließenden `&lt;/body&gt;` tag:</p>
+						```
+						&lt;script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"&gt;&lt;/script&gt;
+						&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"&gt;&lt;/script&gt;
+						&lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"&gt;&lt;/script&gt;
+						```
+					</section>
+					<section>
+						<h2>Beispiel</h2>
+						<p data-height="550" data-theme-id="light" data-slug-hash="przjaV" data-default-tab="result" data-user="maciossek" data-embed-version="2" data-pen-title="przjaV" data-preview="true" class="codepen">See the Pen <a href="https://codepen.io/maciossek/pen/przjaV/">przjaV</a> by Mathias Maciossek (<a href="https://codepen.io/maciossek">@maciossek</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+					</section>
+					<section>
+						<h2>SASS, SCSS</h2>
+						<blockquote>
+							Sass makes CSS fun again. Sass is an extension of CSS, adding nested rules, variables, mixins, selector inheritance, and more. It's translated to well-formatted, standard CSS using the command line tool or a web-framework plugin.
+						</blockquote>
+					</section>
+					<section data-markdown>
+						## Sass Variablen:
+
+						```
+						$font-stack:    Helvetica, sans-serif;
+						$primary-color: #333;
+
+						body {
+						  font: 100% $font-stack;
+						  color: $primary-color;
+						}
+						```
+
+						Kompiliert zu CSS:
+
+						```
+						body {
+						  font: 100% Helvetica, sans-serif;
+						  color: #333;
+						}
+						```
+					</section>
+					<section data-markdown>
+						## Sass Nesting:
+
+						```
+						nav {
+						  ul {
+						    margin: 0;
+						    padding: 0;
+						    list-style: none;
+						  }
+						}
+
+						```
+
+						```
+						nav ul {
+						  margin: 0;
+						  padding: 0;
+						  list-style: none;
+						}
+						```
+					</section>
+					<section data-markdown>
+						## Sass Mixins:
+
+						```
+						@mixin border-radius($radius) {
+						  -webkit-border-radius: $radius;
+						     -moz-border-radius: $radius;
+						      -ms-border-radius: $radius;
+						          border-radius: $radius;
+						}
+
+						.box { @include border-radius(10px); }
+
+						```
+
+						```
+						.box {
+						  -webkit-border-radius: 10px;
+						  -moz-border-radius: 10px;
+						  -ms-border-radius: 10px;
+						  border-radius: 10px;
+						}
+						```
+					</section>
+					<section data-markdown>
+						## Sass Extend/Inheritance:
+
+						```
+						.message {
+						  border: 1px solid #ccc;
+						  padding: 10px;
+						  color: #333;
+						}
+
+						.success {
+						  @extend .message;
+						  border-color: green;
+						}
+
+						```
+
+						```
+						.message, .success, .error, .warning {
+						  border: 1px solid #cccccc;
+						  padding: 10px;
+						  color: #333;
+						}
+
+						.success {
+						  border-color: green;
+						}
+						```
+					</section>
+					<section data-markdown>
+						## Sass Operators:
+
+						```
+						.container { width: 100%; }
+
+						article[role="main"] {
+						  float: left;
+						  width: 600px / 960px * 100%;
+						}
+
+
+						```
+
+						```
+						.container {
+						  width: 100%;
+						}
+
+						article[role="main"] {
+						  float: left;
+						  width: 62.5%;
+						}
+						```
+					</section>
+					<section>
+						<h2>Beispielprojekt</h2>
+						<h3><a href="https://github.com/maciossek/hft-vl-04-example-1" target="_blank">https://github.com/maciossek/hft-vl-04-example-1</a></h3>
+					</section>
+					<section data-markdown>
+						## Aufbau Frontend Projekt
+
+						```
+						.gitignore
+						node_modules
+						package-lock.json
+						package.json
+						postcss.config.js
+						src
+						webpack.config.js
+						yarn.lock
+						```
+					</section>
+					<section data-markdown>
+						## Package JSON
+
+						```
+						…
+						"scripts": {
+							"start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --history-api-fallback --port 3001 --host 0.0.0.0",
+							"test": "echo \"Error: no test specified\" && exit 1"
+						}
+						…
+						```
+					</section>
+					<section data-markdown>
+						## Index JS
+
+						```
+						…
+						// Wir verwenden Node für das Einbinden von npm-packages
+						require('tether')
+						require('bootstrap')
+						require('./index.scss')
+						…
+						```
+					</section>
+					<section data-markdown>
+						## Index Scss
+
+						```
+						@import "~bootstrap/scss/bootstrap";
+
+						$color-main: beige;
+
+						body {
+						  background: $color-main
+						}
+						…
+						```
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Übung</h2>
+						<ul>
+							<li>Tutorial Git <a target="_blank" href="https://try.github.io">https://try.github.io</a></li>
+							<li>Legen Sie auf dem Server ein neues Verzeichnis an: <code class="hljs">~/public_html/Bootstrap/</code></li>
+							<li>Machen Sie eine Webpage index.html (Inhalt Ihrer Wahl)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Übung</h2>
+							<ul>
+								<li>die Überschriften (&lt;h1&gt;, &lt;h2&gt; und &lt;h3&gt;) die gleiche, fancy Schrift</li>
+								<li>Für den Text-Inhalt der Paragraphen ebenfalls eine andere, nette Schrift</li>
+								<li>Dieses Design in einer external CSS implementiert</li>
+								<li>Bootstrap Navigationsleiste (oben horizontal, links vertikal, wo auch immer)!</li>
+								<li>Ein Eingabeformular mit Feldern: Vorname, Name, Emailaddresse und:</li>
+								<li>Ein Submit (Grün) / Reset (Orange/Warning) Button</li>
+							</ul>
+					</section>
+					<section>
+						<h2>Weitere Links</h2>
+						<ul>
+							<li><a href="https://www.w3schools.com/bootstrap/bootstrap_get_started.asp" target="_blank">https://www.w3schools.com/bootstrap/bootstrap_get_started.asp</a></li>
+							<li><a href="http://sass-lang.com/guide">http://sass-lang.com/guide</a></li>
+							<li><a href="http://learngitbranching.js.org/" target="_blank">http://learngitbranching.js.org/</a></li>
+							<li><a href="http://gitreal.codeschool.com/" target="_blank">http://gitreal.codeschool.com/</a></li>
+							<li><a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank">http://nvie.com/posts/a-successful-git-branching-model/</a></li>
+						</ul>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+        slideNumber: true,
+				backgroundTransition: 'slide',
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
+transition
